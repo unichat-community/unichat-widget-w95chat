@@ -1,0 +1,82 @@
+name: main.yaml
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+*'
+
+env:
+  YQ_VERSION: v4.50.1
+
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.1
+
+      - name: Install yq
+        run: |
+          if [ "$(uname -m)" = "x86_64" ]; then
+            ARCH="amd64"
+          elif [ "$(uname -m)" = "aarch64" ]; then
+            ARCH="arm64"
+          else
+            echo "Unsupported architecture."
+            exit 1
+          fi
+          mkdir -p "$HOME/.local/bin"
+          wget "https://github.com/mikefarah/yq/releases/download/${{ env.YQ_VERSION }}/yq_linux_${ARCH}" -O "$HOME/.local/bin/yq"
+          chmod +x "$HOME/.local/bin/yq"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Check manifest version
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          MANIFEST_VERSION=$(yq e '.version' manifest.yaml)
+          if [ "$MANIFEST_VERSION" != "$TAG_NAME" ]; then
+            echo "Manifest version ($MANIFEST_VERSION) does not match tag name ($TAG_NAME)."
+            exit 1
+          else
+            echo "Manifest version matches tag name."
+          fi
+
+      - name: Prepare Folder to ZIP
+        run: |
+          WIDGET_NAME="$(yq e '.name' manifest.yaml)"
+          mkdir -p "dist/${WIDGET_NAME}"
+          cp -r assets "dist/${WIDGET_NAME}/" || echo "No assets directory to copy."
+          cp fields.json "dist/${WIDGET_NAME}/" || echo "No fields.json file to copy."
+          cp LICENSE "dist/${WIDGET_NAME}/" || echo "No LICENSE file to copy."
+          cp main.html "dist/${WIDGET_NAME}/"
+          cp manifest.yaml "dist/${WIDGET_NAME}/"
+          cp script.js "dist/${WIDGET_NAME}/"
+          cp style.css "dist/${WIDGET_NAME}/"
+
+      - name: Create ZIP Archive
+        id: prepare_release
+        run: |
+          WIDGET_NAME="$(yq e '.name' manifest.yaml)"
+          WIDGET_VERSION="$(yq e '.version' manifest.yaml)"
+          ZIP_FILE="${WIDGET_NAME}-${WIDGET_VERSION}.zip"
+          echo "Creating ZIP archive: $ZIP_FILE"
+          cd dist && zip -r "$ZIP_FILE" "${WIDGET_NAME}" -x "**/fieldstate.json"
+
+      - name: Create GitHub Release
+        run: |
+          WIDGET_NAME="$(yq e '.name' manifest.yaml)"
+          WIDGET_VERSION="$(yq e '.version' manifest.yaml)"
+          ZIP_FILE="${WIDGET_NAME}-${WIDGET_VERSION}.zip"
+          if [ -n "$(command -v gh)" ]; then
+            echo "Creating GitHub Release for tag $WIDGET_VERSION"
+            echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+            gh release create "$WIDGET_VERSION" --prerelease
+            echo "Uploading $ZIP_FILE to GitHub Release"
+            gh release upload "$WIDGET_VERSION" "dist/$ZIP_FILE" --clobber
+            echo "All files uploaded to GitHub Release successfully."
+          else
+            echo "GitHub CLI is not installed. Skipping upload to GitHub Release."
+            exit 1
+          fi
