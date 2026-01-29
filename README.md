@@ -1,4 +1,4 @@
-# UniChat Widget - editableDefault
+# UniChat Widget - w95Chat
 
 <p align="center">
   <a href="./README.md">🇺🇸 English</a> |
