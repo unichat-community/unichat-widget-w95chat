@@ -1,11 +1,8 @@
 # UniChat Widget - w95Chat
 
-<p align="center">
-  <a href="./README.md">🇺🇸 English</a> |
-  <a href="./README.pt-br.md">🇧🇷 Português</a>
-</p>
+[🇺🇸 English](./README.md) | [🇧🇷 Português](./README.pt-br.md)
 
-A Windows 95 themed chat widget for **UniChat**.
+A Windows 95 themed chat widget for [**UniChat**](https://codeberg.org/unichat/unichat).
 
 Supports the following events:
 - Message Removed
