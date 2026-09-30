@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+*'
+
+env:
+  YQ_VERSION: v4.50.1
+
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.1
+
+      - name: Install yq
+        run: |
+          if [ "$(uname -m)" = "x86_64" ]; then
+            ARCH="amd64"
+          elif [ "$(uname -m)" = "aarch64" ]; then
+            ARCH="arm64"
+          else
+            echo "Unsupported architecture."
+            exit 1
+          fi
+          mkdir -p "$HOME/.local/bin"
+          wget "https://github.com/mikefarah/yq/releases/download/${{ env.YQ_VERSION }}/yq_linux_${ARCH}" -O "$HOME/.local/bin/yq"
+          chmod +x "$HOME/.local/bin/yq"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Check manifest version
+        run: |
+          TAG_NAME="${{ github.ref_name }}"
+          MANIFEST_VERSION=$(yq e '.version' manifest.yaml)
+          if [ "$MANIFEST_VERSION" != "$TAG_NAME" ]; then
+            echo "Manifest version ($MANIFEST_VERSION) does not match tag name ($TAG_NAME)."
+            exit 1
+          else
+            echo "Manifest version matches tag name."
+          fi
+
+      - name: Prepare Folder to ZIP
+        run: |
+          PLUGIN_NAME="$(yq e '.name' manifest.yaml)"
+          mkdir -p "dist/${PLUGIN_NAME}"
+          cp -r assets "dist/${PLUGIN_NAME}/" || echo "No assets directory to copy."
+          cp fields.json "dist/${PLUGIN_NAME}/" || echo "No fields.json file to copy."
+          cp LICENSE "dist/${PLUGIN_NAME}/" || echo "No LICENSE file to copy."
+          cp main.html "dist/${PLUGIN_NAME}/"
+          cp manifest.yaml "dist/${PLUGIN_NAME}/"
+          cp script.js "dist/${PLUGIN_NAME}/"
+          cp style.css "dist/${PLUGIN_NAME}/"
+
+      - name: Create ZIP Archive
+        id: prepare_release
+        run: |
+          PLUGIN_NAME="$(yq e '.name' manifest.yaml)"
+          PLUGIN_VERSION="$(yq e '.version' manifest.yaml)"
+          ZIP_FILE="${PLUGIN_NAME}-${PLUGIN_VERSION}.zip"
+          echo "Creating ZIP archive: $ZIP_FILE"
+          cd dist && zip -r "$ZIP_FILE" "${PLUGIN_NAME}" -x "**/fieldstate.json"
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PLUGIN_NAME="$(yq e '.name' manifest.yaml)"
+          PLUGIN_VERSION="$(yq e '.version' manifest.yaml)"
+          ZIP_FILE="${PLUGIN_NAME}-${PLUGIN_VERSION}.zip"
+          if [[ "$PLUGIN_VERSION" == *"-"* ]]; then
+            gh release create "$PLUGIN_VERSION" "dist/$ZIP_FILE" --prerelease
+          else
+            gh release create "$PLUGIN_VERSION" "dist/$ZIP_FILE"
+          fi
