@@ -16,7 +16,8 @@
     "accentColor": {
         "type": "colorpicker",
         "label": "Cor de destaque",
-        "value": "#0000FF"
+        "value": "#0000FF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -31,13 +32,15 @@
         "type": "colorpicker",
         "group": "Mensagem",
         "label": "Cor de fundo",
-        "value": "#c0c0c0"
+        "value": "#c0c0c0",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "defaultTextColor": {
         "type": "colorpicker",
         "group": "Mensagem",
         "label": "Cor do texto",
-        "value": "#000000"
+        "value": "#000000",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -52,13 +55,15 @@
         "type": "colorpicker",
         "group": "Decorador da janela",
         "label": "Cor de fundo",
-        "value": "#808080"
+        "value": "#808080",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "headerTextColor": {
         "type": "colorpicker",
         "group": "Decorador da janela",
         "label": "Cor do texto",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -74,14 +79,16 @@
         "group": "Evento de Donate",
         "label": "Cor de fundo",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#808000"
+        "value": "#808000",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "donateTextColor": {
         "type": "colorpicker",
         "group": "Evento de Donate",
         "label": "Cor do texto",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -97,14 +104,16 @@
         "group": "Evento de Sponsor",
         "label": "Cor de fundo",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#000080"
+        "value": "#000080",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "sponsorTextColor": {
         "type": "colorpicker",
         "group": "Evento de Sponsor",
         "label": "Cor do texto",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -120,14 +129,16 @@
         "group": "Evento de Sponsor Gift",
         "label": "Cor de fundo",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#000080"
+        "value": "#000080",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "sponsorGiftTextColor": {
         "type": "colorpicker",
         "group": "Evento de Sponsor Gift",
         "label": "Cor do texto",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -150,14 +161,16 @@
         "group": "Evento de Raid",
         "label": "Cor de fundo",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#000080"
+        "value": "#000080",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "raidTextColor": {
         "type": "colorpicker",
         "group": "Evento de Raid",
         "label": "Cor do texto",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
 
 
@@ -173,13 +186,15 @@
         "group": "Evento de Redemption",
         "label": "Cor de fundo",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#000080"
+        "value": "#000080",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     },
     "redemptionTextColor": {
         "type": "colorpicker",
         "group": "Evento de Redemption",
         "label": "Cor do texto",
         "description": "Cor utilizada no decorador da janela",
-        "value": "#FFFFFF"
+        "value": "#FFFFFF",
+        "swatches": ["#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0", "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff"]
     }
 }
